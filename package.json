@@ -1,0 +1,15 @@
+{
+  "name": "vacancy_map",
+  "private": true,
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "http-server": "^0.8.5",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "leaflet": "^0.7.7"
+  }
+}
