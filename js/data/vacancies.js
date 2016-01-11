@@ -221,7 +221,7 @@ var addresses = [
 
 module.exports = leaflet.layerGroup(addresses.map(function(address) {
   return leaflet.circleMarker(
-    L.latLng(address.lat, address.lng), {
+    leaflet.latLng(address.lat, address.lng), {
       radius: 4,
       color: 'red',
       fillColor: '#f03',
