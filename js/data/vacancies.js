@@ -142,8 +142,8 @@ var addresses = [
   {
     'address': '1442 W Howard',
     'city': 'Chicago',
-    'lat': 42.0193113,
-    'lng': -87.6678334
+    'lat': 42.01931982016043,
+    'lng': -87.66786754131317
   },
   {
     'address': '1440 W Howard',
@@ -160,14 +160,14 @@ var addresses = [
   {
     'address': '7634 N Sheridan',
     'city': 'Chicago',
-    'lat': 42.02018288709674,
-    'lng': -87.66684830188751
+    'lat': 42.020176660104525,
+    'lng': -87.66683757305144
   },
   {
     'address': '7636 N Sheridan',
     'city': 'Chicago',
-    'lat': 42.02021078401441,
-    'lng': -87.66677856445312
+    'lat': 42.02020854229825,
+    'lng': -87.66676783561707
   },
   {
     'address': '7638 N Sheridan',

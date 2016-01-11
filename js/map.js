@@ -11,7 +11,6 @@ var map = leaflet.map('map-container', {
     42.01973653474977,
     -87.67045319080353
   ],
-  dragging: false,
   layers: [grayScaleLayer],
   zoom: 18,
   zoomControl: false
