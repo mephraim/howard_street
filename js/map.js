@@ -1,7 +1,11 @@
+var debug = true;
+
 var leaflet = require('leaflet');
 require('leaflet-providers');
 
-var debug = true;
+var cityData = require('./data/city.js');
+var retailData = require('./data/retail.js');
+var vacancyData = require('./data/vacancies.js');
 
 var blackAndWhiteLayer = leaflet.tileLayer.provider('OpenStreetMap.BlackAndWhite');
 var grayScaleLayer = leaflet.tileLayer.provider('OpenMapSurfer.Grayscale');
@@ -11,10 +15,23 @@ var map = leaflet.map('map-container', {
     42.01973653474977,
     -87.67045319080353
   ],
-  layers: [grayScaleLayer],
+  dragging: false,
+  layers: [
+    grayScaleLayer,
+    require('./data/streets.js'),
+    cityData,
+    retailData,
+    vacancyData
+  ],
   zoom: 18,
   zoomControl: false
 });
+
+leaflet.control.layers(null, {
+  'City Properties': cityData,
+  'Retail': retailData,
+  'Vacancies': vacancyData
+}).addTo(map);
 
 module.exports = map;
 
