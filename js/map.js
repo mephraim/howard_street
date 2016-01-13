@@ -5,11 +5,13 @@ var layerBuilder = require('./layer_builder.js');
 
 var map = leaflet.map('map-container', {
   attributionControl: false,
+  boxZoom: false,
   center: [
     42.01973653474977,
     -87.67045319080353
   ],
   dragging: false,
+  doubleClickZoom: false,
   layers: layerBuilder.getLayers(),
   zoom: 18,
   zoomControl: false

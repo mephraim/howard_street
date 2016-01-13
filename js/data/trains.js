@@ -1,22 +1,22 @@
 var leaflet = require('leaflet');
 
-var redLine = new leaflet.polyline([
-  new L.LatLng(42.018753900936275, -87.6726472),
-  new L.LatLng(42.020666847066614, -87.6749753),
+var purpleLine = new leaflet.polyline([
+  new L.LatLng(42.01875, -87.67249),
+  new L.LatLng(42.02066, -87.67481),
 ], {
-  color: 'red',
-  weight: 2,
-  opacity: 0.5,
+  color: 'purple',
+  weight: 10,
+  opacity: 0.1,
   lineCap: 'square'
 });
 
-var purpleLine = new leaflet.polyline([
-  new L.LatLng(42.018753900936275, -87.67268),
-  new L.LatLng(42.020666847066614, -87.67501),
+var redLine = new leaflet.polyline([
+  new L.LatLng(42.01875, -87.67260),
+  new L.LatLng(42.02066, -87.67493),
 ], {
-  color: 'purple',
-  weight: 2,
-  opacity: 0.5,
+  color: 'red',
+  weight: 10,
+  opacity: 0.1,
   lineCap: 'square'
 });
 

@@ -22,13 +22,14 @@ function getLayerControl() {
     'Vacancies': vacancyGroup
   }, {
     collapsed: false,
-    position: 'bottomright'  
+    position: 'bottomright'
   });
 }
 
 function getLayers() {
   return [
     require('./data/streets.js'),
+    require('./data/trains.js'),
     cityGroup,
     retailGroup,
     vacancyGroup,
@@ -37,7 +38,7 @@ function getLayers() {
 
 function getTiles() {
   var blackAndWhiteLayer = leaflet.tileLayer.provider('Thunderforest.Landscape');
-  blackAndWhiteLayer.setOpacity('0.2');
+  blackAndWhiteLayer.setOpacity('0.1');
 
   var grayScaleLayer = leaflet.tileLayer.provider('OpenMapSurfer.Grayscale');
   grayScaleLayer.setOpacity('0.7');
@@ -49,7 +50,7 @@ function getMarkerGroupFromData(data) {
   return leaflet.layerGroup(data.addresses.map(function(address) {
     return getMarkerFromAddress(address, {
       color: data.color,
-      fillColor: data.fillColor  
+      fillColor: data.fillColor
     });
   }));
 }

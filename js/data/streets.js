@@ -12,4 +12,24 @@ var howard = new leaflet.polyline([
   lineCap: 'square'
 });
 
-module.exports = leaflet.layerGroup([howard]);
+var paulina = new leaflet.polyline([
+  new L.LatLng(42.02117122757243, -87.67307102680206),
+  new L.LatLng(42.019455, -87.67307102680206),
+], {
+  color: 'green',
+  weight: 16,
+  opacity: 0.1,
+  lineCap: 'square'
+});
+
+var rogers = new leaflet.polyline([
+  new L.LatLng(42.02026259254329, -87.66633331775664),
+  new L.LatLng(42.01834564886186, -87.67036736011505),
+], {
+  color: 'green',
+  weight: 16,
+  opacity: 0.1,
+  lineCap: 'square'
+});
+
+module.exports = leaflet.layerGroup([howard, paulina, rogers]);
