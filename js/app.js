@@ -10,8 +10,10 @@ timeSwitchButton.addEventListener('click', function() {
   isDay = !isDay;
 
   if (isDay) {
+    map.switchToDay();
     timeSwitchButton.innerHTML = 'Switch to night';
   } else {
+    map.switchToNight();
     timeSwitchButton.innerHTML = 'Switch to day';
   }
 });

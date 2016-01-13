@@ -3,40 +3,41 @@ var layerBuilder = require('./layer_builder.js');
 
 
 module.exports = {
-  init: init
+  init: init,
+  switchToDay: switchToDay,
+  switchToNight: switchToNight
 };
 
+var map = _getMap();
+var dayLayers = layerBuilder.getDayLayers();
+var nightLayers = layerBuilder.getNightLayers();
+
 function init(options) {
-  var map = getMap();
   layerBuilder.getLayerControl().addTo(map);
 
+
   if (options.isDay) {
-    layerBuilder.getDayLayers().addTo(map);
+    switchToDay();
   } else {
-    layerBuilder.getNightLayers().addTo(map);
+    switchToNight();
   }
 
   if (options.debug) {
-    addDebuggerControls(map);
+    _addDebuggerControls(map);
   }
 }
 
-function getMap() {
-  return leaflet.map('map-container', {
-    attributionControl: false,
-    boxZoom: false,
-    center: [
-      42.01973653474977,
-      -87.67045319080353
-    ],
-    dragging: false,
-    doubleClickZoom: false,
-    zoom: 18,
-    zoomControl: false
-  });
+function switchToDay() {
+  map.removeLayer(nightLayers);
+  map.addLayer(dayLayers);
 }
 
-function addDebuggerControls(map) {
+function switchToNight() {
+  map.removeLayer(dayLayers);
+  map.addLayer(nightLayers);
+}
+
+function _addDebuggerControls(map) {
   var debugMarker = leaflet.circleMarker(leaflet.latLng(0, 0), {
     daggable: true,
     radius: 4,
@@ -49,5 +50,20 @@ function addDebuggerControls(map) {
     console.log('location', event.latlng);
     debugMarker.setLatLng(
       leaflet.latLng(event.latlng.lat, event.latlng.lng));
+  });
+}
+
+function _getMap() {
+  return leaflet.map('map-container', {
+    attributionControl: false,
+    boxZoom: false,
+    center: [
+      42.01973653474977,
+      -87.67045319080353
+    ],
+    dragging: false,
+    doubleClickZoom: false,
+    zoom: 18,
+    zoomControl: false
   });
 }
