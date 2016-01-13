@@ -14,7 +14,8 @@ var dayTiles = getDayTiles();
 var nightTiles = getNightTiles();
 
 module.exports = {
-  getLayers: getLayers,
+  getDayLayers: getDayLayers,
+  getNightLayers: getNightLayers,
   getLayerControl: getLayerControl
 };
 
@@ -29,14 +30,24 @@ function getLayerControl() {
   });
 }
 
-function getLayers() {
+function getSharedLayers() {
   return [
     require('./data/streets.js'),
     require('./data/trains.js'),
     cityGroup,
     retailGroup,
-    vacancyGroup,
-  ].concat(dayTiles);
+    vacancyGroup
+  ];
+}
+
+function getDayLayers() {
+  return leaflet.layerGroup(
+    getSharedLayers().concat(dayTiles));
+}
+
+function getNightLayers() {
+  return leaflet.layerGroup(
+    getSharedLayers().concat(nightTiles));
 }
 
 function getDayTiles() {

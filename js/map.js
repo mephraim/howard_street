@@ -1,27 +1,42 @@
-var debug = true;
-
 var leaflet = require('leaflet');
 var layerBuilder = require('./layer_builder.js');
 
-var map = leaflet.map('map-container', {
-  attributionControl: false,
-  boxZoom: false,
-  center: [
-    42.01973653474977,
-    -87.67045319080353
-  ],
-  dragging: false,
-  doubleClickZoom: false,
-  layers: layerBuilder.getLayers(),
-  zoom: 18,
-  zoomControl: false
-});
 
-layerBuilder.getLayerControl().addTo(map);
+module.exports = {
+  init: init
+};
 
-module.exports = map;
+function init(options) {
+  var map = getMap();
+  layerBuilder.getLayerControl().addTo(map);
 
-if (debug) {
+  if (options.isDay) {
+    layerBuilder.getDayLayers().addTo(map);
+  } else {
+    layerBuilder.getNightLayers().addTo(map);
+  }
+
+  if (options.debug) {
+    addDebuggerControls(map);
+  }
+}
+
+function getMap() {
+  return leaflet.map('map-container', {
+    attributionControl: false,
+    boxZoom: false,
+    center: [
+      42.01973653474977,
+      -87.67045319080353
+    ],
+    dragging: false,
+    doubleClickZoom: false,
+    zoom: 18,
+    zoomControl: false
+  });
+}
+
+function addDebuggerControls(map) {
   var debugMarker = leaflet.circleMarker(leaflet.latLng(0, 0), {
     daggable: true,
     radius: 4,
