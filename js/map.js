@@ -1,17 +1,7 @@
 var debug = true;
 
 var leaflet = require('leaflet');
-require('leaflet-providers');
-
-var cityData = require('./data/city.js');
-var retailData = require('./data/retail.js');
-var vacancyData = require('./data/vacancies.js');
-
-var blackAndWhiteLayer = leaflet.tileLayer.provider('Thunderforest.Landscape');
-blackAndWhiteLayer.setOpacity('0.1');
-
-var grayScaleLayer = leaflet.tileLayer.provider('OpenMapSurfer.Grayscale');
-grayScaleLayer.setOpacity('0.7');
+var layerBuilder = require('./layer_builder.js');
 
 var map = leaflet.map('map-container', {
   center: [
@@ -19,23 +9,12 @@ var map = leaflet.map('map-container', {
     -87.67045319080353
   ],
   dragging: false,
-  layers: [
-    grayScaleLayer,
-    blackAndWhiteLayer,
-    require('./data/streets.js'),
-    cityData,
-    retailData,
-    vacancyData
-  ],
+  layers: layerBuilder.getLayers(),
   zoom: 18,
   zoomControl: false
 });
 
-leaflet.control.layers(null, {
-  'City Properties': cityData,
-  'Retail': retailData,
-  'Vacancies': vacancyData
-}).addTo(map);
+layerBuilder.getLayerControl().addTo(map);
 
 module.exports = map;
 
