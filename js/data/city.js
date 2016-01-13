@@ -2,26 +2,38 @@ var leaflet = require('leaflet');
 
 var addresses = [
   {
-    'address': '7519 North Paulina St',
-    'name': 'Howard CTA',
-    'city': 'Chicago',
-    'lat': 42.019383585391125,
-    'lng': -87.67334997653961
-  },
-  {
     'address': '1610 Howard St',
     'name': 'Willye B. White Fieldhouse',
     'city': 'Chicago',
-    'lat': 42.01952307161032,
-    'lng': -87.67151534557343
+    'lat': 42.019493430814336,
+    'lng': -87.67151534557343,
+    'hours': {
+      'open': 6,
+      'close': 23
+    }
   },
   {
-    'address': 'Gale Community Academy',
-    'name': '1631 W Jonquil Terrace',
+    'address': '1631 W Jonquil Terrace',
+    'name': 'Gale Community Academy',
     'city': 'Chicago',
     'lat': 42.02050345183246,
-    'lng': -87.67141878604889
-  }
+    'lng': -87.67141878604889,
+    'hours': {
+      'open': 6,
+      'close': 17
+    }
+  },
+  {
+    'address': '7617 N Paulina St',
+    'name': 'US Post Office',
+    'city': 'Chicago',
+    'lat': 42.01995174073677,
+    'lng': -87.6729489,
+    'hours': {
+      'open': 11,
+      'close': 5
+    }
+  },
 ];
 
 module.exports = leaflet.layerGroup(addresses.map(function(address) {

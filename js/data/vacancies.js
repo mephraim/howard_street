@@ -59,7 +59,7 @@ var addresses = [
     'address': '1646 W Howard',
     'city': 'Chicago',
     'lat': 42.019493430814336,
-    'lng': -87.67269551753998
+    'lng': -87.67257750034331
   },
   {
     'address': '1643 W Howard',
@@ -188,43 +188,56 @@ var addresses = [
     'lng': -87.66660153865814
   },
   {
-    'address': 'Howard El',
+    'address': 'Howard El South',
     'city': 'Chicago',
     'lat': 42.01934198854868,
-    'lng': -87.67328023910522
+    'lng': -87.67328023910522,
+    'owner': 'CTA'
   },
   {
-    'address': 'Howard El',
+    'address': 'Howard El South',
     'city': 'Chicago',
     'lat': 42.01934198854868,
-    'lng': -87.67339825630188
+    'lng': -87.67339825630188,
+    'owner': 'CTA'
   },
   {
-    'address': 'Howard El',
+    'address': 'Howard El North',
     'city': 'Chicago',
     'lat': 42.01943365101573,
-    'lng': -87.67328023910522
+    'lng': -87.67328023910522,
+    'owner': 'CTA'
   },
   {
-    'address': 'Howard El',
+    'address': 'Howard El North',
     'city': 'Chicago',
     'lat': 42.01943365101573,
-    'lng': -87.67337143421173
+    'lng': -87.67337143421173,
+    'owner': 'CTA'
   },
   {
-    'address': 'Howard El',
+    'address': 'Howard El North',
     'city': 'Chicago',
     'lat': 42.01943365101573,
-    'lng': -87.67346799373627
+    'lng': -87.67346799373627,
+    'owner': 'CTA'
   }
 ];
 
 module.exports = leaflet.layerGroup(addresses.map(function(address) {
+  var config = {
+    radius: 4,
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.8
+  };
+
+  if (address.owner == 'CTA') {
+    config.fillColor = '#56BFDA';
+  }
+
   return leaflet.circleMarker(
-    leaflet.latLng(address.lat, address.lng), {
-      radius: 4,
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.8
-  }).bindPopup(address.address);
+    leaflet.
+      latLng(address.lat, address.lng), config).
+      bindPopup(address.address);
 }));
