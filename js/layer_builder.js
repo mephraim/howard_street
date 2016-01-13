@@ -10,6 +10,9 @@ var retailGroup =
 var vacancyGroup =
   getMarkerGroupFromData(require('./data/vacancies.js'));
 
+var dayTiles = getDayTiles();
+var nightTiles = getNightTiles();
+
 module.exports = {
   getLayers: getLayers,
   getLayerControl: getLayerControl
@@ -33,17 +36,21 @@ function getLayers() {
     cityGroup,
     retailGroup,
     vacancyGroup,
-  ].concat(getTiles());
+  ].concat(dayTiles);
 }
 
-function getTiles() {
-  var blackAndWhiteLayer = leaflet.tileLayer.provider('Thunderforest.Landscape');
-  blackAndWhiteLayer.setOpacity('0.1');
+function getDayTiles() {
+  return leaflet.layerGroup([
+    leaflet.tileLayer.provider('OpenMapSurfer.Grayscale').setOpacity('0.7'),
+    leaflet.tileLayer.provider('Thunderforest.Landscape').setOpacity('0.1')
+  ]);
+}
 
-  var grayScaleLayer = leaflet.tileLayer.provider('OpenMapSurfer.Grayscale');
-  grayScaleLayer.setOpacity('0.7');
-
-  return [grayScaleLayer, blackAndWhiteLayer];
+function getNightTiles() {
+  return leaflet.layerGroup([
+    leaflet.tileLayer.provider('CartoDB.DarkMatterNoLabels'),
+    leaflet.tileLayer.provider('OpenMapSurfer.Grayscale').setOpacity('0.1')
+  ]);
 }
 
 function getMarkerGroupFromData(data) {
