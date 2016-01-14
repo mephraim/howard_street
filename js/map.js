@@ -1,6 +1,6 @@
 var leaflet = require('leaflet');
-var layerBuilder = require('./layer_builder.js');
-
+var markerBuilder = require('./marker_builder.js');
+var tileBuilder = require('./tile_builder.js');
 
 module.exports = {
   init: init,
@@ -9,11 +9,13 @@ module.exports = {
 };
 
 var map = _getMap();
-var dayLayers = layerBuilder.getDayLayers();
-var nightLayers = layerBuilder.getNightLayers();
+var dayTiles = tileBuilder.getDayTiles();
+var nightTiles = tileBuilder.getNightTiles();
 
 function init(options) {
-  // layerBuilder.getLayerControl().addTo(map);
+  map.addLayer(require('./data/streets.js'));
+  map.addLayer(require('./data/trains.js'));
+  map.addLayer(markerBuilder.getMarkers());
 
   if (options.isDay) {
     switchToDay();
@@ -27,13 +29,13 @@ function init(options) {
 }
 
 function switchToDay() {
-  map.removeLayer(nightLayers);
-  map.addLayer(dayLayers);
+  map.removeLayer(nightTiles);
+  map.addLayer(dayTiles);
 }
 
 function switchToNight() {
-  map.removeLayer(dayLayers);
-  map.addLayer(nightLayers);
+  map.removeLayer(dayTiles);
+  map.addLayer(nightTiles);
 }
 
 function _addDebuggerControls(map) {
