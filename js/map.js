@@ -15,7 +15,6 @@ var nightLayers = layerBuilder.getNightLayers();
 function init(options) {
   layerBuilder.getLayerControl().addTo(map);
 
-
   if (options.isDay) {
     switchToDay();
   } else {
@@ -58,8 +57,8 @@ function _getMap() {
     attributionControl: false,
     boxZoom: false,
     center: [
-      42.01973653474977,
-      -87.67045319080353
+      42.01972856414368,
+      -87.67042636871338
     ],
     dragging: false,
     doubleClickZoom: false,

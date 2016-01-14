@@ -18,7 +18,7 @@ var paulina = new leaflet.polyline([
 ], {
   color: 'green',
   weight: 16,
-  opacity: 0.1,
+  opacity: 0.2,
   lineCap: 'square'
 });
 
@@ -28,7 +28,7 @@ var rogers = new leaflet.polyline([
 ], {
   color: 'green',
   weight: 16,
-  opacity: 0.1,
+  opacity: 0.2,
   lineCap: 'square'
 });
 
