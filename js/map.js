@@ -13,7 +13,7 @@ var dayLayers = layerBuilder.getDayLayers();
 var nightLayers = layerBuilder.getNightLayers();
 
 function init(options) {
-  layerBuilder.getLayerControl().addTo(map);
+  // layerBuilder.getLayerControl().addTo(map);
 
   if (options.isDay) {
     switchToDay();
