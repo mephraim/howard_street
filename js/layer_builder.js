@@ -2,13 +2,52 @@ var leaflet = require('leaflet');
 require('leaflet-providers');
 
 var cityGroup =
-  getMarkerGroupFromData(require('./data/city.js'));
+  getMarkerGroupFromData(require('./data/city.js'), {
+    color: 'blue',
+    fillColor: '#56BFDA'
+  });
+
+var ctaGroup =
+  getMarkerGroupFromData(require('./data/cta_retail.js'), {
+    color: 'red',
+    fillColor: '#f03'
+  });
+
+var groceryGroup =
+  getMarkerGroupFromData(require('./data/grocery.js'), {
+    color: 'green',
+    fillColor: '#1BDA0A'
+  });
+
+var entertainmentGroup =
+  getMarkerGroupFromData(require('./data/entertainment.js'), {
+    color: 'green',
+    fillColor: '#1BDA0A'
+  });
 
 var retailGroup =
-  getMarkerGroupFromData(require('./data/retail.js'));
+  getMarkerGroupFromData(require('./data/retail.js'), {
+    color: 'green',
+    fillColor: '#1BDA0A'
+  });
+
+var restaurantGroup =
+  getMarkerGroupFromData(require('./data/restaurants.js'), {
+    color: 'green',
+    fillColor: '#1BDA0A'
+  });
+
+var otherGroup =
+  getMarkerGroupFromData(require('./data/other.js'), {
+    color: 'green',
+    fillColor: '#1BDA0A'
+  });
 
 var vacancyGroup =
-  getMarkerGroupFromData(require('./data/vacancies.js'));
+  getMarkerGroupFromData(require('./data/vacancies.js'), {
+    color: 'red',
+    fillColor: '#f03',
+  });
 
 var dayTiles = getDayTiles();
 var nightTiles = getNightTiles();
@@ -35,7 +74,10 @@ function getSharedLayers() {
     require('./data/streets.js'),
     require('./data/trains.js'),
     cityGroup,
+    ctaGroup,
+    groceryGroup,
     retailGroup,
+    restaurantGroup,
     vacancyGroup
   ];
 }
@@ -64,11 +106,11 @@ function getNightTiles() {
   ]);
 }
 
-function getMarkerGroupFromData(data) {
+function getMarkerGroupFromData(data, options) {
   return leaflet.layerGroup(data.addresses.map(function(address) {
     return getMarkerFromAddress(address, {
-      color: data.color,
-      fillColor: data.fillColor
+      color: options.color,
+      fillColor: options.fillColor
     });
   }));
 }

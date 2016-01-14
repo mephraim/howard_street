@@ -1,6 +1,4 @@
 module.exports = {
-  color: 'blue',
-  fillColor: '#56BFDA',
   addresses: [
     {
       'address': '1610 Howard St',

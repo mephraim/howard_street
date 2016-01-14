@@ -23,7 +23,7 @@ var paulina = new leaflet.polyline([
 });
 
 var rogers = new leaflet.polyline([
-  new L.LatLng(42.02026259254329, -87.66633331775664),
+  new L.LatLng(42.02083646880916, -87.66513705253601),
   new L.LatLng(42.01834564886186, -87.67036736011505),
 ], {
   color: 'green',

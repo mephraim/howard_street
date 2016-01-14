@@ -2,6 +2,7 @@ var map = require('./map.js');
 
 var isDay = true;
 map.init({
+  debug: true,
   isDay: isDay
 });
 

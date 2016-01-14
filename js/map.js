@@ -50,6 +50,10 @@ function _addDebuggerControls(map) {
     debugMarker.setLatLng(
       leaflet.latLng(event.latlng.lat, event.latlng.lng));
   });
+
+  map.on('dragend', function(event) {
+    console.log('center', map.getCenter());
+  });
 }
 
 function _getMap() {
@@ -57,8 +61,8 @@ function _getMap() {
     attributionControl: false,
     boxZoom: false,
     center: [
-      42.01972856414368,
-      -87.67042636871338
+      42.01972059353658,
+      -87.67039954662323
     ],
     dragging: false,
     doubleClickZoom: false,
