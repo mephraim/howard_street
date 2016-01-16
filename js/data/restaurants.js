@@ -21,7 +21,7 @@ module.exports = {
       'type': 'restaurant',
       'hours': {
         'open': 10,
-        'close': 19
+        'close': 21
       }
     },
     {
@@ -33,7 +33,7 @@ module.exports = {
       'type': 'restaurant',
       'hours': {
         'open': 10,
-        'close': 18
+        'close': 23
       }
     },
     {
@@ -69,7 +69,7 @@ module.exports = {
       'type': 'restaurant',
       'hours': {
         'open': 10,
-        'close': 20
+        'close': 21
       }
     },
     {

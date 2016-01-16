@@ -31,11 +31,13 @@ function init(options) {
 function switchToDay() {
   map.removeLayer(nightTiles);
   map.addLayer(dayTiles);
+  markerBuilder.setMarkersToDay();
 }
 
 function switchToNight() {
   map.removeLayer(dayTiles);
   map.addLayer(nightTiles);
+  markerBuilder.setMarkersToNight();
 }
 
 function _addDebuggerControls(map) {

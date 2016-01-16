@@ -1,91 +1,176 @@
 var leaflet = require('leaflet');
 
-module.exports = {
-  getMarkers: getMarkers
+var CLOSED_MARKER_STYLE = {
+  color: '#444',
+  fillColor: '#444'
 };
 
-function getMarkers(isDay) {
+var groups = {
+  city: _getCityGroup(),
+  cta: _getCtaGroup(),
+  grocery: _getGroceryGroup(),
+  other: _getOtherGroup(),
+  restaurant: _getRestaurantGroup(),
+  retail: _getRetailGroup(),
+  vacancy: _getVacancyGroup()
+};
+
+var markers = _getMarkers();
+
+module.exports = {
+  getMarkers: function() {
+    return markers;
+  },
+
+  setMarkersToDay: setMarkersToDay,
+  setMarkersToNight: setMarkersToNight
+};
+
+function setMarkersToDay() {
+  _forEachGroup(function(name, group) {
+    group.eachLayer(function(marker) {
+      marker.setOpen();
+    });
+  });
+}
+
+function setMarkersToNight() {
+  _forEachGroup(function(name, group) {
+    group.eachLayer(function(marker) {
+      if (marker.addressData.hours &&
+          marker.addressData.hours.close <= 20) {
+        marker.setClosed();
+      }
+    });
+  });
+}
+
+function _getMarkers() {
   return leaflet.layerGroup([
-    _getCityGroup(isDay),
-    _getCtaGroup(isDay),
-    _getGroceryGroup(isDay),
-    _getRetailGroup(isDay),
-    _getRestaurantGroup(isDay),
-    _getVacancyGroup(isDay)
+    groups.city,
+    groups.cta,
+    groups.grocery,
+    groups.other,
+    groups.restaurant,
+    groups.retail,
+    groups.vacancy
   ]);
 }
 
-function _getCityGroup(isDay) {
+function _getCityGroup() {
   return _getMarkerGroupFromData(require('./data/city.js'), {
-    color: 'blue',
-    fillColor: '#56BFDA'
+    open: {
+      color: 'blue',
+      fillColor: '#56BFDA'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getCtaGroup(isDay) {
+function _getCtaGroup() {
   return _getMarkerGroupFromData(require('./data/cta_retail.js'), {
-    color: 'red',
-    fillColor: '#f03'
+    open: {
+      color: 'red',
+      fillColor: '#f03'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getGroceryGroup(isDay) {
+function _getGroceryGroup() {
   return _getMarkerGroupFromData(require('./data/grocery.js'), {
-    color: 'green',
-    fillColor: '#1BDA0A'
+    open: {
+      color: 'green',
+      fillColor: '#1BDA0A'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getEntertainmentGroup(isDay) {
+function _getEntertainmentGroup() {
   return _getMarkerGroupFromData(require('./data/entertainment.js'), {
-    color: 'green',
-    fillColor: '#1BDA0A'
+    open: {
+      color: 'green',
+      fillColor: '#1BDA0A'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getRetailGroup(isDay) {
-  return _getMarkerGroupFromData(require('./data/retail.js'), {
-    color: 'green',
-    fillColor: '#1BDA0A'
-  });
-}
-
-function _getRestaurantGroup(isDay) {
+function _getRestaurantGroup() {
   return _getMarkerGroupFromData(require('./data/restaurants.js'), {
-    color: 'green',
-    fillColor: '#1BDA0A'
+    open: {
+      color: 'green',
+      fillColor: '#1BDA0A'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getOtherGroup(isDay) {
+function _getRetailGroup() {
+  return _getMarkerGroupFromData(require('./data/retail.js'), {
+    open: {
+      color: 'green',
+      fillColor: '#1BDA0A'
+    },
+
+    closed: CLOSED_MARKER_STYLE
+  });
+}
+
+function _getOtherGroup() {
   return _getMarkerGroupFromData(require('./data/other.js'), {
-    color: 'green',
-    fillColor: '#1BDA0A'
+    open: {
+      color: 'green',
+      fillColor: '#1BDA0A'
+    },
+
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getVacancyGroup(isDay) {
+function _getVacancyGroup() {
   return _getMarkerGroupFromData(require('./data/vacancies.js'), {
-    color: 'red',
-    fillColor: '#f03',
+    open: {
+      color: 'red',
+      fillColor: '#f03'
+    },
+    closed: CLOSED_MARKER_STYLE
   });
 }
 
 function _getMarkerGroupFromData(data, options) {
   return leaflet.layerGroup(data.addresses.map(function(address) {
-    return _getMarkerFromAddress(address, {
-      color: options.color,
-      fillColor: options.fillColor
-    });
+    return _getMarkerFromAddress(address, options);
   }));
 }
 
 function _getMarkerFromAddress(address, options) {
-  return leaflet.circleMarker(
+  var marker = leaflet.circleMarker(
     leaflet.latLng(address.lat, address.lng), {
       radius: 4,
-      color: options.color,
-      fillColor: options.fillColor,
       fillOpacity: 0.8
   }).bindPopup(address.name + '<br>' + address.address);
+
+  marker.setOpen = function() {
+    marker.setStyle(options.open);
+  };
+
+  marker.setClosed = function() {
+    marker.setStyle(options.closed);
+  };
+
+  marker.addressData = address;
+  return marker;
+}
+
+function _forEachGroup(func) {
+  for (var group in groups) {
+    func(group, groups[group]);
+  }
 }
