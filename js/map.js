@@ -15,13 +15,14 @@ var nightTiles = tileBuilder.getNightTiles();
 function init(options) {
   map.addLayer(require('./data/streets.js'));
   map.addLayer(require('./data/trains.js'));
-  map.addLayer(markerBuilder.getMarkers());
 
   if (options.isDay) {
     switchToDay();
   } else {
     switchToNight();
   }
+
+  markerBuilder.getLayerControl().addTo(map);
 
   if (options.debug) {
     _addDebuggerControls(map);
@@ -70,6 +71,7 @@ function _getMap() {
     ],
     dragging: false,
     doubleClickZoom: false,
+    layers: markerBuilder.getMarkers(),
     zoom: 18,
     zoomControl: false
   });

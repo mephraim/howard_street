@@ -12,12 +12,13 @@ var groups = {
   other: _getOtherGroup(),
   restaurant: _getRestaurantGroup(),
   retail: _getRetailGroup(),
-  vacancy: _getVacancyGroup()
+  vacant: _getVacancyGroup()
 };
 
 var markers = _getMarkers();
 
 module.exports = {
+  getLayerControl: getLayerControl,
   getMarkers: function() {
     return markers;
   },
@@ -25,6 +26,21 @@ module.exports = {
   setMarkersToDay: setMarkersToDay,
   setMarkersToNight: setMarkersToNight
 };
+
+function getLayerControl() {
+  return leaflet.control.layers(null, {
+    'City': groups.city,
+    'CTA': groups.cta,
+    'Grocery': groups.grocery,
+    'Other': groups.other,
+    'Restaurant': groups.restaurant,
+    'Retail': groups.retail,
+    'Vacant': groups.vacant
+  }, {
+    collapsed: false,
+    position: 'topleft'
+  });
+}
 
 function setMarkersToDay() {
   _forEachGroup(function(name, group) {
@@ -46,15 +62,15 @@ function setMarkersToNight() {
 }
 
 function _getMarkers() {
-  return leaflet.layerGroup([
+  return [
     groups.city,
     groups.cta,
     groups.grocery,
     groups.other,
     groups.restaurant,
     groups.retail,
-    groups.vacancy
-  ]);
+    groups.vacant
+  ];
 }
 
 function _getCityGroup() {
