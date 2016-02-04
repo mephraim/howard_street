@@ -8,6 +8,7 @@ var CLOSED_MARKER_STYLE = {
 var groups = {
   city: _getCityGroup(),
   cta: _getCtaGroup(),
+  entertainment: _getEntertainmentGroup(),
   grocery: _getGroceryGroup(),
   other: _getOtherGroup(),
   restaurant: _getRestaurantGroup(),
@@ -18,7 +19,7 @@ var groups = {
 var markers = _getMarkers();
 
 module.exports = {
-  getLayerControl: getLayerControl,
+  getMarkerLayerControl: getMarkerLayerControl,
   getMarkers: function() {
     return markers;
   },
@@ -27,16 +28,8 @@ module.exports = {
   setMarkersToNight: setMarkersToNight
 };
 
-function getLayerControl() {
-  return leaflet.control.layers(null, {
-    'City': groups.city,
-    'CTA': groups.cta,
-    'Grocery': groups.grocery,
-    'Other': groups.other,
-    'Restaurant': groups.restaurant,
-    'Retail': groups.retail,
-    'Vacant': groups.vacant
-  }, {
+function getMarkerLayerControl() {
+  return leaflet.control.layers(null, _getMarkerLayers(), {
     collapsed: false,
     position: 'topleft'
   });
@@ -61,14 +54,38 @@ function setMarkersToNight() {
   });
 }
 
+function _getMarkerLayers() {
+  var labels = {};
+  labels[_getMarkerLayerLabel('City', 'city')] = groups.city;
+  labels[_getMarkerLayerLabel('CTA', 'cta')] = groups.cta;
+  labels[_getMarkerLayerLabel('Entertainment', 'entertainment')] = groups.entertainment;
+  labels[_getMarkerLayerLabel('Grocery', 'grocery')] = groups.grocery;
+  labels[_getMarkerLayerLabel('Other', 'other')] = groups.other;
+  labels[_getMarkerLayerLabel('Restaurant', 'restaurant')] = groups.restaurant;
+  labels[_getMarkerLayerLabel('Retail', 'retail')] = groups.retail;
+  labels[_getMarkerLayerLabel('Vacant', 'vacant')] = groups.vacant;
+
+  return labels;
+}
+
+function _getMarkerLayerLabel(text, cssClass) {
+  var element = document.createElement('span');
+  element.classList.add('marker-layer-label');
+  element.classList.add(cssClass);
+  element.innerText = text;
+
+  return element.outerHTML;
+}
+
 function _getMarkers() {
   return [
     groups.city,
     groups.cta,
+    groups.entertainment,
     groups.grocery,
-    groups.other,
     groups.restaurant,
     groups.retail,
+    groups.other,
     groups.vacant
   ];
 }
@@ -76,7 +93,7 @@ function _getMarkers() {
 function _getCityGroup() {
   return _getMarkerGroupFromData(require('./data/city.js'), {
     open: {
-      color: 'blue',
+      color: '#56BFDA',
       fillColor: '#56BFDA'
     },
 
@@ -87,19 +104,8 @@ function _getCityGroup() {
 function _getCtaGroup() {
   return _getMarkerGroupFromData(require('./data/cta_retail.js'), {
     open: {
-      color: 'red',
-      fillColor: '#f03'
-    },
-
-    closed: CLOSED_MARKER_STYLE
-  });
-}
-
-function _getGroceryGroup() {
-  return _getMarkerGroupFromData(require('./data/grocery.js'), {
-    open: {
-      color: 'green',
-      fillColor: '#1BDA0A'
+      color: '#086AEB',
+      fillColor: '#086AEB'
     },
 
     closed: CLOSED_MARKER_STYLE
@@ -109,29 +115,18 @@ function _getGroceryGroup() {
 function _getEntertainmentGroup() {
   return _getMarkerGroupFromData(require('./data/entertainment.js'), {
     open: {
-      color: 'green',
-      fillColor: '#1BDA0A'
+      color: '#FF6F00',
+      fillColor: '#FF6F00'
     },
 
     closed: CLOSED_MARKER_STYLE
   });
 }
 
-function _getRestaurantGroup() {
-  return _getMarkerGroupFromData(require('./data/restaurants.js'), {
+function _getGroceryGroup() {
+  return _getMarkerGroupFromData(require('./data/grocery.js'), {
     open: {
-      color: 'green',
-      fillColor: '#1BDA0A'
-    },
-
-    closed: CLOSED_MARKER_STYLE
-  });
-}
-
-function _getRetailGroup() {
-  return _getMarkerGroupFromData(require('./data/retail.js'), {
-    open: {
-      color: 'green',
+      color: '#1BDA0A',
       fillColor: '#1BDA0A'
     },
 
@@ -150,10 +145,32 @@ function _getOtherGroup() {
   });
 }
 
+function _getRestaurantGroup() {
+  return _getMarkerGroupFromData(require('./data/restaurants.js'), {
+    open: {
+      color: '#C76700',
+      fillColor: '#C76700'
+    },
+
+    closed: CLOSED_MARKER_STYLE
+  });
+}
+
+function _getRetailGroup() {
+  return _getMarkerGroupFromData(require('./data/retail.js'), {
+    open: {
+      color: '#FF5E5E',
+      fillColor: '#FF5E5E'
+    },
+
+    closed: CLOSED_MARKER_STYLE
+  });
+}
+
 function _getVacancyGroup() {
   return _getMarkerGroupFromData(require('./data/vacancies.js'), {
     open: {
-      color: 'red',
+      color: '#f03',
       fillColor: '#f03'
     },
     closed: CLOSED_MARKER_STYLE
@@ -170,7 +187,8 @@ function _getMarkerFromAddress(address, options) {
   var marker = leaflet.circleMarker(
     leaflet.latLng(address.lat, address.lng), {
       radius: 4,
-      fillOpacity: 0.8
+      fillOpacity: 0.9,
+      weight: 1
   }).bindPopup(address.name + '<br>' + address.address);
 
   marker.setOpen = function() {

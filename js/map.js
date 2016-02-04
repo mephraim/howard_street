@@ -22,7 +22,7 @@ function init(options) {
     switchToNight();
   }
 
-  markerBuilder.getLayerControl().addTo(map);
+  markerBuilder.getMarkerLayerControl().addTo(map);
 
   if (options.debug) {
     _addDebuggerControls(map);

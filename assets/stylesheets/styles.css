@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+}
+
+#map-container {
+  margin: 10px;
+  height: 430px;
+  width: 1500px;
+}
+
+#map-container .leaflet-control-layers-expanded {
+  background: none;
+  box-shadow: none;
+}
+
+.marker-layer-label {
+  border-radius: 11px;
+  border-style: solid;
+  border-width: 1px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  margin: 1px 0;
+  margin-left: -19px;
+  padding: 1px 7px;
+  position: relative;
+  text-shadow: 1px 1px #777;
+  width: 69px;
+}
+
+:checked + span > .marker-layer-label {
+  color: #fff;
+}
+
+:not(:checked) + span > .marker-layer-label {
+  background: #fff;
+  text-shadow: none;
+}
+
+.marker-layer-label.city {
+  background: #56BFDA;
+  border-color: #56BFDA;
+  color: #56BFDA;
+}
+
+.marker-layer-label.cta {
+  background: #086AEB;
+  border-color: #086AEB;
+  color: #086AEB;
+}
+
+.marker-layer-label.entertainment {
+  background: #FF6F00;
+  border-color: #FF6F00;
+  color: #FF6F00;
+}
+
+.marker-layer-label.grocery {
+  background: #1BDA0A;
+  border-color: #1BDA0A;
+  color: #1BDA0A;
+}
+
+.marker-layer-label.other {
+  background: #EA47FF;
+  border-color: #EA47FF;
+  color: #EA47FF;
+}
+
+.marker-layer-label.restaurant {
+  background: #C76700;
+  border-color: #C76700;
+  color: #C76700;
+}
+
+.marker-layer-label.retail {
+  background: #FF5E5E;
+  border-color: #FF5E5E;
+  color: #FF5E5E;
+}
+
+.marker-layer-label.vacant {
+  background: #f03;
+  border-color: #f03;
+  color: #f03;
+  margin-bottom: 0;
+}
+

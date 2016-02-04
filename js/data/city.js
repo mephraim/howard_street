@@ -8,7 +8,7 @@ module.exports = {
       'lng': -87.67151534557343,
       'hours': {
         'open': 6,
-        'close': 23
+        'close': 20
       }
     },
     {
